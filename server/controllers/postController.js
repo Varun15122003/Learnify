@@ -18,6 +18,7 @@ const createPost = async (req, res) => {
     const createdPost = await post.save();
     res.status(201).json(createdPost);
   } catch (error) {
+    console.error(error);
   };
 
   // @desc    Get all posts for a course
@@ -28,6 +29,10 @@ const createPost = async (req, res) => {
       const posts = await Post.find({ course: req.params.courseId }).populate('user', 'name role');
       res.json(posts);
     } catch (error) {
+      console.error(error);
     };
 
-    module.exports = { createPost, getPostsForCourse };
+
+  }
+}
+module.exports = { createPost, getPostsForCourse };
