@@ -5,25 +5,29 @@ const Post = require('../models/Post.js');
 // @route   POST /api/posts/course/:courseId
 // @access  Private
 const createPost = async (req, res) => {
-  const { text } = req.body;
-  const { courseId } = req.params;
+  try {
+    const { text } = req.body;
+    const { courseId } = req.params;
 
-  const post = new Post({
-    text,
-    course: courseId,
-    user: req.user._id,
-  });
+    const post = new Post({
+      text,
+      course: courseId,
+      user: req.user._id,
+    });
 
-  const createdPost = await post.save();
-  res.status(201).json(createdPost);
-};
+    const createdPost = await post.save();
+    res.status(201).json(createdPost);
+  } catch (error) {
+  };
 
-// @desc    Get all posts for a course
-// @route   GET /api/posts/course/:courseId
-// @access  Public
-const getPostsForCourse = async (req, res) => {
-  const posts = await Post.find({ course: req.params.courseId }).populate('user', 'name role');
-  res.json(posts);
-};
+  // @desc    Get all posts for a course
+  // @route   GET /api/posts/course/:courseId
+  // @access  Public
+  const getPostsForCourse = async (req, res) => {
+    try {
+      const posts = await Post.find({ course: req.params.courseId }).populate('user', 'name role');
+      res.json(posts);
+    } catch (error) {
+    };
 
-module.exports ={ createPost, getPostsForCourse };
+    module.exports = { createPost, getPostsForCourse };

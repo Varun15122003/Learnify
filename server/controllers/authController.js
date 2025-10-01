@@ -60,26 +60,26 @@ const getUserProfile = async (req, res) => {
 
 // ==> YEH FUNCTION SABSE ZAROORI HAI <==
 const updateUserProfilePicture = async (req, res) => {
-  try {
-    const user = await User.findById(req.user._id);
-    if (user) {
-      if (req.file) {
-        user.profilePicture = `/uploads/${req.file.filename}`;
-        const updatedUser = await user.save();
-        res.json({
-          message: 'Profile picture updated successfully',
-          profilePicture: updatedUser.profilePicture,
-        });
-      } else {
-        res.status(400).json({ message: 'Please upload an image file' });
-      }
-    } else {
-      res.status(404).json({ message: 'User not found' });
+    try {
+        const user = await User.findById(req.user._id);
+        if (user) {
+            if (req.file) {
+                user.profilePicture = `/uploads/${req.file.filename}`;
+                const updatedUser = await user.save();
+                res.json({
+                    message: 'Profile picture updated successfully',
+                    profilePicture: updatedUser.profilePicture,
+                });
+            } else {
+                res.status(400).json({ message: 'Please upload an image file' });
+            }
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server Error' });
     }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server Error' });
-  }
 };
 
 module.exports = { registerUser, loginUser, getUserProfile, updateUserProfilePicture };

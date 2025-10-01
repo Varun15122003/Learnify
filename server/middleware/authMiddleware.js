@@ -22,10 +22,15 @@ const protect = async (req, res, next) => {
 };
 
 const mentor = (req, res, next) => {
+  try {
     if (req.user && req.user.role === 'Mentor') {
         next();
     } else {
         res.status(401).json({ message: 'Not authorized as a mentor' });
+    }
+     } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server Error' });
     }
 };
 
