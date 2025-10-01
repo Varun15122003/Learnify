@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Backend ka URL yahan set karein
-const API = axios.create({ baseURL: 'http://localhost:5000' });
+const API = axios.create({ baseURL: import.meta.env.VITE_API_URL });
 
 // Yeh interceptor har request ke saath token bhejta hai
 API.interceptors.request.use((req) => {

@@ -62,7 +62,7 @@ export default function ProfilePage({ onLogout }) {
     }
     
     // Backend path ko frontend URL mein badlein
-    const serverUrl = 'http://localhost:5000';
+    const serverUrl = import.meta.env.VITE_API_URL;
     const profilePicUrl = profile.profilePicture ? `${serverUrl}${profile.profilePicture}` : null;
 
     return (
