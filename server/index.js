@@ -29,6 +29,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // API Routes
+app.get('/', (req, res) => {
+    res.send('Learnify API is running...');
+});
 app.use('/api/auth', authRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/posts', postRoutes);
