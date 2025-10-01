@@ -1,4 +1,5 @@
-// import Post from '../models/Post.js';
+// controllers/postController.js
+
 const Post = require('../models/Post.js');
 
 // @desc    Create a new post in a course discussion
@@ -19,20 +20,22 @@ const createPost = async (req, res) => {
     res.status(201).json(createdPost);
   } catch (error) {
     console.error(error);
-  };
-
-  // @desc    Get all posts for a course
-  // @route   GET /api/posts/course/:courseId
-  // @access  Public
-  const getPostsForCourse = async (req, res) => {
-    try {
-      const posts = await Post.find({ course: req.params.courseId }).populate('user', 'name role');
-      res.json(posts);
-    } catch (error) {
-      console.error(error);
-    };
-
-
+    res.status(500).json({ message: 'Server Error' });
   }
-}
+};
+
+// @desc    Get all posts for a course
+// @route   GET /api/posts/course/:courseId
+// @access  Public
+const getPostsForCourse = async (req, res) => {
+  try {
+    const posts = await Post.find({ course: req.params.courseId })
+      .populate('user', 'name role');
+    res.json(posts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
 module.exports = { createPost, getPostsForCourse };
